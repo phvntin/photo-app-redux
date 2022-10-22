@@ -1,33 +1,25 @@
 import React, { Suspense } from "react";
 import {
   BrowserRouter as Router,
-  Link,
   Navigate,
   Route,
   Routes,
 } from "react-router-dom";
 import "./App.scss";
+import Header from "./components/Header";
+import Loading from "./components/Loading/Loading";
 import NotFound from "./components/NotFound";
-import Photo from "./features/Photo";
 import AddEditPage from "./features/Photo/pages/AddEdit";
-import MainPage from "./features/Photo/pages/Main";
 
 // Lazy load - Code splitting
-// const Photo = React.lazy(() => import("./features/Photo"));
+const Photo = React.lazy(() => import("./features/Photo"));
 
 function App() {
   return (
     <div className="photo-app">
-      <Suspense fallback={<div>Loading ...</div>}>
+      <Suspense fallback={<Loading />}>
         <Router>
-          <ul>
-            <li>
-              <Link to="/photos">Go to photo page</Link>
-            </li>
-            <li>
-              <Link to="/photos/add">Go to Add photo page</Link>
-            </li>
-          </ul>
+          <Header />
 
           <Routes>
             <Route exact path="/" element={<Navigate to="/photos" replace />} />
@@ -38,7 +30,7 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Route>
 
-            <Route element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
       </Suspense>

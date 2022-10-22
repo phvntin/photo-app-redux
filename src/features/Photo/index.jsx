@@ -9,7 +9,6 @@ Photo.propTypes = {};
 function Photo(props) {
   return (
     <div>
-      <h1>Photo</h1>
       <Routes>
         <Route index element={<MainPage />} />
 

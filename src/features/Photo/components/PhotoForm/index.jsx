@@ -5,17 +5,38 @@ import RandomPhotoField from "custom-fields/RandomPhotoField";
 import SelectField from "custom-fields/SelectField";
 import { FastField, Form, Formik } from "formik";
 import { Button, FormGroup, Label } from "reactstrap";
+import PropTypes from "prop-types";
+import * as Yup from "yup";
 
-PhotoForm.propTypes = {};
+PhotoForm.propTypes = {
+  onSubmit: PropTypes.func,
+};
+
+PhotoForm.defaultProps = {
+  onSubmit: null,
+};
 
 function PhotoForm(props) {
   const initialValues = {
     title: "",
     categoryId: null,
+    photo: "",
   };
+
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().required("Please enter your title."),
+
+    categoryId: Yup.number()
+      .required("Please select your category.")
+      .nullable(),
+
+    photo: Yup.string().required("Please click random a photo."),
+  });
+
   return (
     <Formik
       initialValues={initialValues}
+      validationSchema={validationSchema}
       onSubmit={(values) => console.log("Submit: ", values)}
     >
       {(formikProps) => {

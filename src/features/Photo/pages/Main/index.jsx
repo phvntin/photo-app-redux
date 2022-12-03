@@ -6,6 +6,7 @@ import { Container } from "reactstrap";
 MainPage.propTypes = {};
 
 function MainPage(props) {
+  console.log("Testing");
   return (
     <div>
       <Banner title="Your awesome photos" backgroundUrl={Images.PINK_BG} />
